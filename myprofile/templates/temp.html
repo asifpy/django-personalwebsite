@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+{% load django_markdown %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all,follow">
+    <meta name="googlebot" content="index,follow,snippet,archive">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{website.title}} | responsive portfolio</title>
+
+    <meta name="keywords" content="">
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,100%7CRoboto:400,700,300,100' rel='stylesheet' type='text/css'>
+
+    <!-- Bootstrap and Font Awesome css -->
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme stylesheet -->
+    <link href="/static/css/style.green.css" rel="stylesheet" id="theme-stylesheet">
+
+    <!-- Custom stylesheet - for your changes -->
+    <link href="/static/css/custom.css" rel="stylesheet">
+
+    <!-- owl carousel css -->
+
+    <link href="/static/css/owl.carousel.css" rel="stylesheet">
+    <link href="/static/css/owl.theme.css" rel="stylesheet">
+
+    <!-- CSS Animations -->
+    <link href="/static/css/animate.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/static/img/favicon.png">
+
+    <!-- Mordernizr -->
+    <script src="/static/js/modernizr-2.6.2.min.js"></script>
+
+    <!-- Responsivity for older IE -->
+    <!--[if lt IE 9]>
+    <script src="/static/js/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#navigation" data-offset="120">
+
+    <!-- *** NAVBAR ***
+_________________________________________________________ -->
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand scrollTo" href="#intro">{{website.title}}</a>
+            </div>
+
+            <div class="navbar-collapse collapse" id="navigation">
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#intro">Intro</a>
+                    </li>
+                    <li><a href="#about">About</a>
+                    </li>
+                    <li><a href="#skills">Skills</a>
+                    </li>
+                    </li>
+                    <li><a href="#references">Fun Projects</a>
+                    </li>
+                     <li><a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+
+        </div>
+    </div>
+    <!-- /#navbar -->
+
+    <!-- *** NAVBAR END *** -->
+
+
+    <div id="all">
+        <!-- *** INTRO IMAGE ***
+_________________________________________________________ -->
+        <div id="intro" class="clearfix">
+            <div class="item">
+                <div class="container">
+                    <div class="row">
+                        <div class="carousel-caption">
+                            <div data-animate="fadeInDown" class="logo">
+                                <img src="/static/img/logo-big.png" alt="logo" width="130">
+                            </div>
+                            <h1 data-animate="fadeInDown" style="opacity: 0;">Hello, नमस्ते !</h1>
+                            <h2 data-animate="slideInUp" style="opacity: 0;">Welcome to {{website.title}}'s website, built using Django</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- *** INTRO IMAGE END *** -->
+
+        <!-- *** ABOUT ***
+_________________________________________________________ -->
+        <div class="section" id="about">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <h2 class="title" data-animate="fadeInDown">About me</h2>
+                    </div>
+
+                    <div class="col-sm-12">
+
+                        <div class="row">
+
+                            <div class="col-sm-6 text-left" data-animate="fadeInUp">
+                                {{website.about|markdown}}
+                            </div>
+
+                            <div class="col-sm-6" data-animate="fadeInUp">
+
+                                {% for skill_rate in skill_ratings %}
+                                    <div class="skill-item">
+                                        <div class="progress-title">
+                                            {{skill_rate.skill_name}}
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-skill1" role="progressbar" aria-valuenow="{{skill_rate.rate}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill_rate.rate}}%;">
+                                                <span class="sr-only">{{skill_rate.rate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 mt-big" data-animate="bounceIn">
+                        <img src="{{website.profile_img.url}}" class="image img-circle img-responsive" alt="This is me - IT worker">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#about -->
+
+        <!-- *** ABOUT END *** -->
+
+        <!-- *** SERVICES ***
+_________________________________________________________ -->
+        <div class="section text-gradient" id="skills">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2 class="title" data-animate="fadeInDown">Skills</h2>
+
+                    <div class="row services">
+
+                        {% for skill in skills %}
+                            <div class="col-md-4" data-animate="fadeInUp">
+                                <div class="icon"><i class="fa fa-tachometer"></i> 
+                                </div>
+                                <h3 class="heading">{{skill.name}}</h3>
+                                <p>{{skill.description|markdown}}</p>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="lead">Would you like to know more or just discuss something?</p>
+                        <p><a href="#contact" class="btn btn-default btn-lg scrollTo">Contact me</a></p>
+                    </div>
+
+                </div>
+                <!-- /.12 -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.section -->
+
+        <!-- *** SERVICES END *** -->
+
+        <!-- *** REFERENCES IMAGE ***
+_________________________________________________________ -->
+        <div class="section" id="references">
+            <div class="container">
+                <div class="col-sm-12">
+
+                    <div class="mb20">
+                        <h2 class="title" data-animate="fadeInUp">Fun Projects</h2>
+
+                        <p class="lead" data-animate="fadeInUp">I have worked on dozens of projects so I have picked only fun projects for you. You can view my all fun projects on <a href="{{repo_url}}">Github</a></p>
+                    </div>
+
+                    <div id="detail">
+
+                        <span class="close">&times;</span> 
+
+                        <div id="detail-slider"></div>
+
+                        <div class="text-center">
+                            <h1 id="detail-title">&nbsp;</h1>
+                        </div>
+
+                        <div id="detail-content"></div>
+
+                    </div>
+                    <!-- Reference detail -->
+
+                    <div id="references-masonry" data-animate="fadeInUp">
+
+                        {% for project in fun_projects %}
+                            <div class="reference-item" data-category="">
+                                <div class="reference">
+                                    <h4>{{project.name}}</h4>
+                                    <a href="#">
+                                        <img src="/static/img/portfolio-2.jpg" class="img-responsive" alt="" />
+                                        <div class="overlay">
+                                            <h3 class="reference-title">{{project.name}}</h3> 
+                                            <p>{{project.short_description}}<p>
+                                        </div>
+                                    </a>
+
+                                    <div class="sr-only reference-description" data-images="">
+
+                                        {{project.description|markdown}}
+
+                                    <p class="buttons">
+                                        <a class="btn btn-primary" href="{{project.repo_url}}"><i class="fa fa-globe"></i> View in Github</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- /#references-masonry -->
+
+                </div>
+                <!-- /.12 -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.section -->
+
+        <!-- *** REFERENCES END *** -->
+
+       
+        <!-- *** CONTACT ***
+_________________________________________________________ -->
+
+        <div class="section contact" id="contact" data-animate="bounceIn">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2 class="title">Contact me</h2>
+
+                    <div class="row">
+
+                        <div class="col-md-8 col-md-offset-2">
+                            <form id="contact-form" method="post" action=".">
+                                {% csrf_token %}
+                                <div class="messages">
+
+                                </div>
+
+                                <div class="controls">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" name="name" class="form-control" placeholder="Your firstname *" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="surname" class="form-control" placeholder="Your lastname *" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="email" class="form-control" placeholder="Your email *" required="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="phone" class="form-control" placeholder="Your phone">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea name="message" class="form-control" placeholder="Message for me *" rows="4" required="required"></textarea>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <input type="submit" class="btn btn-primary btn-lg" value="Send message">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.12 -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.section -->
+
+        <!-- *** CONTACT END *** -->
+
+        <!-- *** MAP ***
+_________________________________________________________ -->
+
+        <div class="section" id="map">
+
+        </div>
+        <!-- /.section -->
+
+        <!-- *** MAP END *** -->
+
+        <!-- *** FOOTER ***
+_________________________________________________________ -->
+
+        <div class="section" id="footer">
+            <div class="container">
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+
+                        <p class="social">
+                            <a href="#" class="external facebook" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="external instagram" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-instagram"></i></a>
+                            <a href="#" class="external gplus" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="email" data-animate-hover="shake" data-animate="fadeInUp"><i class="fa fa-envelope"></i></a>
+                        </p>
+                    </div>
+                    <!-- /.6 -->
+
+                    <div class="col-sm-6">
+                        <p>&copy; 2015 Your name goes here. All rights reserved.</p>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <p class="template-bootstrapious">Template by <a href="http://www.bootstrapious.com">Bootstrap Templates</a> with support from <a href="http://kakusei.cz">Designový nábytek</a> 
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.section -->
+
+        <!-- *** FOOTER END *** -->
+
+
+
+    </div>
+    <!-- /#all -->
+
+    <!-- #### JAVASCRIPT FILES ### -->
+
+    <!-- js base -->
+    <script src="/static/js/jquery-1.11.0.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- for demo purpose -->
+    <script src="/static/js/jquery.cookie.js"></script>
+
+    <!-- waypoints for scroll spy -->
+    <script src="/static/js/waypoints.min.js"></script>
+
+    <!-- maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+    <script src="/static/js/gmaps.js"></script>
+
+    <!-- masonry layout -->
+    <script src="/static/js/masonry.pkgd.min.js"></script>
+
+    <!-- owl carousel -->
+    <script src="/static/js/owl.carousel.min.js"></script>
+
+
+    <!-- jQuery scroll to -->
+    <script src="/static/js/jquery.scrollTo.min.js"></script>
+
+    <!-- jQuery counter -->
+    <script src="/static/js/jquery.counterup.min.js"></script>
+
+    <!-- jQuery parallax -->
+    <script src="/static/js/jquery.parallax-1.1.3.js"></script>
+
+    <!-- main js file -->
+
+    <script src="/static/js/front.js"></script>
+
+    
+
+
+
+</body>
+
+</html>
