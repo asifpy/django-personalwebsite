@@ -1,3 +1,5 @@
 *.pyc
 db.sqlite3
+myprofile/media
+myprofile/media/*
 .DS_Store
