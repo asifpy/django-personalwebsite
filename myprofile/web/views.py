@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib import messages
 
 from myprofile.web.models import(
     Website,
@@ -31,6 +31,7 @@ class WebsiteView(TemplateView):
         context['skills'] = Skill.objects.all()
         context['fun_projects'] = FunProject.objects.all()
         context['repo_url'] = settings.REPO_URL
+        context['webemail'] = settings.WEBEMAIL
         return context
 
     def post(self, request, *args, **kwargs):
@@ -49,6 +50,10 @@ class WebsiteView(TemplateView):
             [to_email],
             fail_silently=False)
 
+        title = context['website'].title
+        messages.success(
+            request,
+            'Your message has been sent to {}'.format(title))
         return super(TemplateView, self).render_to_response(context)
 
 
